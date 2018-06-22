@@ -10,7 +10,7 @@ const msp = (state) => {
 
 const mdp = (dispatch) => {
   return ({
-    fetchEvents: (monthYear) => dispatch(fetchEvents(monthYear))
+    fetchEvents: (date) => dispatch(fetchEvents(date))
   });
 }
 

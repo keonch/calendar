@@ -9,12 +9,11 @@ const receiveEvents = (payload) => {
   })
 };
 
-export const fetchEvents = (monthYear) => {
+export const fetchEvents = (date) => {
   return(
     (dispatch) => {
       return (
-        APIUtils.fetchEvents(monthYear)
-        .then((res) => res.json())
+        APIUtils.fetchEvents(date)
         .then((payload) => dispatch(receiveEvents(payload)))
       );
     }
