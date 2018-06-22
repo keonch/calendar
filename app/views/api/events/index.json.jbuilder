@@ -1,5 +1,5 @@
 json.events do
   @events.each do |event|
   end
-  "from events index"
+  json.sampleTxt "from events index"
 end

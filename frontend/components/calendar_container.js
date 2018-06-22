@@ -10,9 +10,8 @@ const msp = (state) => {
 
 const mdp = (dispatch) => {
   return ({
-
+    fetchEvents: (monthYear) => dispatch(fetchEvents(monthYear))
   });
 }
-// fetchEvents: (monthYear) => dispatch(fetchEvents(monthYear))
 
 export default connect(msp, mdp)(Calendar);

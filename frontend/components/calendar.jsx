@@ -6,10 +6,14 @@ export default class Calendar extends React.Component {
 
   }
 
+  componentDidMount() {
+    this.props.fetchEvents("june2018");
+  }
+
   render() {
     return (
       <div className="calendar">
-        
+
       </div>
     )
   }
