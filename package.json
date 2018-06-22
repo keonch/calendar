@@ -1,0 +1,22 @@
+{
+  "name": "calendar",
+  "private": true,
+  "dependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.4",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1",
+    "react-redux": "^5.0.7",
+    "redux": "^4.0.0",
+    "redux-logger": "^3.0.6",
+    "webpack": "^4.12.0"
+  },
+  "scripts": {
+    "webpack": "webpack --watch --mode=development"
+  },
+  "devDependencies": {
+    "webpack-cli": "^3.0.8"
+  }
+}
