@@ -1,9 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import configureStore from './store/store';
 
-import Calendar from './components/calendar';
+import Calendar from './components/calendar_container';
 
 document.addEventListener('DOMContentLoaded', () => {
-  const root = document.getElementById('root');
-  ReactDOM.render(<Calendar /> , root);
+  ReactDOM.render(
+    <Calendar store={ configureStore() }/> ,
+    document.getElementById('root')
+  );
 });
