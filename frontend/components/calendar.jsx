@@ -8,7 +8,7 @@ export default class Calendar extends React.Component {
     this.date = new Date();
 
     this.state = {
-      month: this.months[this.date.getMonth()],
+      month: this.date.getMonth(),
       year: this.date.getFullYear()
     }
   }
@@ -18,19 +18,37 @@ export default class Calendar extends React.Component {
   }
 
   getDays() {
-    const firstDay = new Date(this.date.getFullYear(), this.date.getMonth(), 1).getDay();
+    const firstDay = new Date(this.state.year, this.state.month, 1).getDay();
     const days = [];
     for (let i = 0; i < firstDay; i++) {
       days.push(<td className="empty" key={ i }></td>)
     };
     const blankDays = days.length;
-    const daysInMonth = new Date(this.date.getFullYear(), this.date.getMonth() + 1, 0).getDate();
+    const daysInMonth = new Date(this.state.year, this.state.month + 1, 0).getDate();
     for (let i = 0; i < daysInMonth; i++) {
       days.push(
         <td className="day" key={ i + blankDays }>{ i + 1 }</td>)
     }
 
     return days;
+  }
+
+  changeMonth(e, increment) {
+    let month;
+    let year = this.state.year;
+    if (this.state.month + increment < 0) {
+      month = 11;
+      year--;
+    } else if (this.state.month + increment > 11) {
+      month = 0;
+      year++;
+    } else {
+      month = this.state.month + increment
+    }
+    this.setState({
+      month,
+      year
+    })
   }
 
   render() {
@@ -66,7 +84,11 @@ export default class Calendar extends React.Component {
       <table className="calendar">
         <thead>
           <tr>
-            <th>{ this.state.month }</th>
+            <th>
+              <i className={ `fas fa-caret-left` } onClick={ (e) => this.changeMonth(e, -1) }></i>
+              { this.months[this.state.month] }
+              <i className={ `fas fa-caret-right` } onClick={ (e) => this.changeMonth(e, 1) }></i>
+            </th>
             <th>{ this.state.year }</th>
           </tr>
         </thead>
