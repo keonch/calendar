@@ -1,39 +1,49 @@
 import React from 'react';
+import EventIndexForm from './event_index_form';
 
 export default class Calendar extends React.Component {
   constructor(props) {
     super(props);
     this.months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     this.weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-    this.date = new Date();
+    this.currentDate = new Date();
 
     this.state = {
-      month: this.date.getMonth(),
-      year: this.date.getFullYear()
+      month: this.currentDate.getMonth(),
+      year: this.currentDate.getFullYear(),
+      showIndexForm: false,
+      day: this.currentDate.getDate()
     }
   }
 
   componentDidMount() {
-    this.props.fetchEvents(this.date);
+    this.props.fetchEvents(this.currentDate);
   }
 
   getDays() {
     const firstDay = new Date(this.state.year, this.state.month, 1).getDay();
     const days = [];
     for (let i = 0; i < firstDay; i++) {
-      days.push(<td className="empty" key={ i }></td>)
+      days.push(<td className="empty" key={i}></td>)
     };
     const blankDays = days.length;
     const daysInMonth = new Date(this.state.year, this.state.month + 1, 0).getDate();
     for (let i = 0; i < daysInMonth; i++) {
+      const day = i + 1;
       days.push(
-        <td className="day" key={ i + blankDays }>{ i + 1 }</td>)
+        <td
+          className="day"
+          key={i + blankDays}
+          onClick={(e) => this.toggleEventIndexForm(e, day)}>
+          {day}
+        </td>
+      )
     }
 
     return days;
   }
 
-  changeMonth(e, increment) {
+  changeMonth(increment) {
     let month;
     let year = this.state.year;
     if (this.state.month + increment < 0) {
@@ -51,9 +61,23 @@ export default class Calendar extends React.Component {
     })
   }
 
+  toggleEventIndexForm(e, day) {
+    if (this.state.showIndexForm) {
+      day !== this.state.day ?
+      this.setState({day})
+      :
+      this.setState({showIndexForm: false})
+    } else {
+      this.setState({
+        showIndexForm: true,
+        day
+      })
+    }
+  }
+
   render() {
     const weekdays = this.weekdays.map((weekday) => (
-      <td key={ weekday } className="weekday">{ weekday }</td>
+      <td key={weekday} className="weekday">{weekday}</td>
     ));
 
     const days = this.getDays();
@@ -76,28 +100,36 @@ export default class Calendar extends React.Component {
 
     const slots = rows.map((row, i) => {
       return (
-        <tr key={ i }>{ row }</tr>
+        <tr key={i} className={`row-${i + 1}`}>{row}</tr>
       )
     });
 
     return (
-      <table className="calendar">
-        <thead>
-          <tr>
-            <th>
-              <i className={ `fas fa-caret-left` } onClick={ (e) => this.changeMonth(e, -1) }></i>
-              { this.months[this.state.month] }
-              <i className={ `fas fa-caret-right` } onClick={ (e) => this.changeMonth(e, 1) }></i>
-            </th>
-            <th>{ this.state.year }</th>
-          </tr>
-        </thead>
+      <div className="container">
+        <table className="calendar">
+          <thead>
+            <tr>
+              <th>
+                <i
+                  className={`fas fa-caret-left`}
+                  onClick={() => this.changeMonth(-1)}/>
+                <i
+                  className={`fas fa-caret-right`}
+                  onClick={() => this.changeMonth(1)}/>
+                  {this.months[this.state.month]}
+              </th>
+              <th>{this.state.year}</th>
+            </tr>
+          </thead>
 
-        <tbody>
-          <tr className="weekdays">{ weekdays }</tr>
-          { slots }
-        </tbody>
-      </table>
+          <tbody>
+            <tr className="weekdays">{weekdays}</tr>
+            {slots}
+          </tbody>
+        </table>
+        {this.state.showIndexForm &&
+          <EventIndexForm day={this.state.day}/>}
+      </div>
     )
   }
 }
