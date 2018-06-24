@@ -17,15 +17,50 @@ export default class Calendar extends React.Component {
     this.props.fetchEvents(this.date);
   }
 
-  firstWeekday() {
-    const firstDay = new Date(this.date.getFullYear(), this.date.getMonth(), 1);
-    return firstDay.getDay();
+  getDays() {
+    const firstDay = new Date(this.date.getFullYear(), this.date.getMonth(), 1).getDay();
+    const days = [];
+    for (let i = 0; i < firstDay; i++) {
+      days.push(<td className="empty" key={ i }></td>)
+    };
+    const blankDays = days.length;
+    const daysInMonth = new Date(this.date.getFullYear(), this.date.getMonth() + 1, 0).getDate();
+    for (let i = 0; i < daysInMonth; i++) {
+      days.push(
+        <td className="day" key={ i + blankDays }>{ i + 1 }</td>)
+    }
+
+    return days;
   }
 
   render() {
     const weekdays = this.weekdays.map((weekday) => (
-      <td key={ weekday }>{ weekday }</td>
+      <td key={ weekday } className="weekday">{ weekday }</td>
     ));
+
+    const days = this.getDays();
+    const rows = [];
+    let row = new Array();
+
+    days.forEach((day, i) => {
+      if (row.length < 7) {
+        row.push(day);
+      } else {
+        rows.push(row);
+        row = new Array();
+        row.push(day);
+      }
+
+      if (i === days.length - 1) {
+        rows.push(row);
+      }
+    });
+
+    const slots = rows.map((row, i) => {
+      return (
+        <tr key={ i }>{ row }</tr>
+      )
+    });
 
     return (
       <table className="calendar">
@@ -37,7 +72,8 @@ export default class Calendar extends React.Component {
         </thead>
 
         <tbody>
-          <tr>{ weekdays }</tr>
+          <tr className="weekdays">{ weekdays }</tr>
+          { slots }
         </tbody>
       </table>
     )
