@@ -12,7 +12,7 @@ export default class Calendar extends React.Component {
       month: this.currentDate.getMonth(),
       year: this.currentDate.getFullYear(),
       showIndexForm: false,
-      day: this.currentDate.getDate()
+      indexFormDate: this.currentDate
     }
   }
 
@@ -62,15 +62,16 @@ export default class Calendar extends React.Component {
   }
 
   toggleEventIndexForm(e, day) {
+    const indexFormDate = new Date(this.state.year, this.state.month, day);
     if (this.state.showIndexForm) {
-      day !== this.state.day ?
-      this.setState({day})
+      day !== this.state.indexFormDate.getDate() ?
+      this.setState({indexFormDate})
       :
       this.setState({showIndexForm: false})
     } else {
       this.setState({
         showIndexForm: true,
-        day
+        indexFormDate
       })
     }
   }
@@ -128,7 +129,9 @@ export default class Calendar extends React.Component {
           </tbody>
         </table>
         {this.state.showIndexForm &&
-          <EventIndexForm day={this.state.day}/>}
+          <EventIndexForm
+            showForm={false}
+            date={this.state.indexFormDate}/>}
       </div>
     )
   }
