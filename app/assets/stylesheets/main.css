@@ -5,3 +5,8 @@
 .start, .end {
   width: 400px;
 }
+
+form {
+  display: flex;
+  flex-flow: column nowrap;
+}

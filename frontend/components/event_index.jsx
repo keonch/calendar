@@ -1,5 +1,5 @@
 import React from 'react';
-import EventForm from './event_form';
+import EventForm from './event_form_container';
 
 export default class EventIndexForm extends React.Component {
   constructor(props) {
@@ -43,7 +43,7 @@ export default class EventIndexForm extends React.Component {
         </h1>
         {
           this.state.showForm ?
-          <EventForm toggleForm={this.toggleForm} date={this.state.date}/> :
+          <EventForm closeForm={this.toggleForm} date={this.state.date}/> :
           <div onClick={() => this.toggleForm()}>Create An Event</div>
         }
       </div>
