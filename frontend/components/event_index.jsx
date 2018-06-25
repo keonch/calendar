@@ -36,7 +36,7 @@ export default class EventIndexForm extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="index">
         <div onClick={() => this.props.closeIndex()}>Close</div>
         <h1>
           {`${this.props.weekdays[this.state.date.getDay()]}, ${this.props.months[this.state.date.getMonth()]} ${this.state.date.getDate()}`}

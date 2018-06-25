@@ -1,6 +1,37 @@
-.fas {
-  font-size: 30px;
-  color: blue;
+.app {
+  display: grid;
+  grid-template-columns: auto 400px;
+  grid-template-rows: 50px auto;
+  grid-template-areas:
+    "header index"
+    "calendar index";
+}
+
+header {
+  grid-area: header;
+}
+
+.calendar {
+  grid-area: calendar;
+  display: grid;
+  grid-template-rows: 20px 1fr 1fr 1fr 1fr 1fr;
+  grid-auto-flow: row;
+}
+
+.weekdays {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-auto-flow: column;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-auto-flow: column;
+}
+
+.index {
+  grid-area: index;
 }
 
 .start, .end {

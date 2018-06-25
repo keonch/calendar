@@ -30,7 +30,7 @@ export default class Calendar extends React.Component {
     const days = [];
 
     for (let i = 0; i < firstDay; i++) {
-      days.push(<div className="empty" key={i}></div>)
+      days.push(<div className="day" key={i}></div>)
     };
 
     const blankDays = days.length;
@@ -43,11 +43,11 @@ export default class Calendar extends React.Component {
       const dayEvents = sortedEvents[day];
       const eventDescriptions = dayEvents ?
         dayEvents.map((eventId) => {
-          return (
-            <div key={eventId}>
-              {this.props.events[eventId].description}
-            </div>
-          )
+          // return (
+          //   <div key={eventId}>
+          //     {this.props.events[eventId].description}
+          //   </div>
+          // )
         }) :
         ""
 
@@ -122,7 +122,7 @@ export default class Calendar extends React.Component {
       } else {
         if (rows.length === 4) {
           const prevSlot = row[wrapCount];
-          row[wrapCount] = <div key={i}>{prevSlot}{day}</div>
+          row[wrapCount] = <div className="day" key={i}>{prevSlot}{day}</div>
           wrapCount++;
         } else {
           rows.push(row);
@@ -135,7 +135,7 @@ export default class Calendar extends React.Component {
     });
 
     return rows.map((row, i) => (
-        <div key={i} className={`row-${i + 1}`}>{row}</div>
+        <div key={i} className={`row row-${i + 1}`}>{row}</div>
     ));
   }
 
