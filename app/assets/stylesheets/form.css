@@ -1,0 +1,8 @@
+form {
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.start, .end {
+  width: 250px;
+}

@@ -1,6 +1,5 @@
 import React from 'react';
 import EventIndex from './event_index';
-import { groupAndSortEvents } from '../reducers/selectors';
 
 export default class Calendar extends React.Component {
   constructor(props) {
@@ -36,20 +35,18 @@ export default class Calendar extends React.Component {
     const blankDays = days.length;
     const daysInMonth = new Date(this.state.year, this.state.month + 1, 0).getDate();
 
-    const sortedEvents = groupAndSortEvents(this.props.events, this.state.year, this.state.month);
-
     for (let i = 0; i < daysInMonth; i++) {
       const day = i + 1;
-      const dayEvents = sortedEvents[day];
-      const eventDescriptions = dayEvents ?
-        dayEvents.map((eventId) => {
-          // return (
-          //   <div key={eventId}>
-          //     {this.props.events[eventId].description}
-          //   </div>
-          // )
-        }) :
-        ""
+      // const dayEvents = sortedEvents[day];
+      // const eventDescriptions = dayEvents ?
+      //   dayEvents.map((eventId) => {
+      //     return (
+      //       <div key={eventId}>
+      //         {this.props.events[eventId].description}
+      //       </div>
+      //     )
+      //   }) :
+      //   ""
 
       days.push(
         <div
@@ -57,9 +54,10 @@ export default class Calendar extends React.Component {
           key={i + blankDays}
           onClick={() => this.toggleIndex(day)}>
           <h2>{day}</h2>
-          {eventDescriptions}
+
         </div>
       );
+                // {eventDescriptions}
     }
     return days;
   }
@@ -144,13 +142,13 @@ export default class Calendar extends React.Component {
       <div className="app">
         <header>
           <i
-            className={`fas fa-caret-left`}
+            className={`fas fa-angle-left`}
             onClick={() => this.changeMonth(-1)}/>
-          {this.months[this.state.month]}
+          <h1>{this.months[this.state.month]}</h1>
           <i
-            className={`fas fa-caret-right`}
+            className={`fas fa-angle-right`}
             onClick={() => this.changeMonth(1)}/>
-          {this.state.year}
+          <h1>{this.state.year}</h1>
         </header>
 
         <section className="calendar">

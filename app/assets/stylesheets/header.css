@@ -1,0 +1,18 @@
+i {
+  color: grey;
+  font-size: 35px;
+  opacity: .8;
+  text-align: center;
+  padding: 3px 10px;
+}
+
+i:hover {
+  border-radius: 50%;
+  background-color: lightgrey;
+}
+
+h1 {
+  width: 100px;
+  font-size: 20px;
+  text-align: center;
+}
