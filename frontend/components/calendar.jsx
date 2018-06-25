@@ -22,7 +22,7 @@ export default class Calendar extends React.Component {
   }
 
   componentDidMount() {
-    this.props.fetchEvents(this.currentDate);
+    this.props.fetchAllEvents();
   }
 
   getDays() {
@@ -76,7 +76,6 @@ export default class Calendar extends React.Component {
     } else {
       month = this.state.month + increment
     }
-    this.props.fetchEvents(new Date(year, month, 1));
     this.setState({
       month,
       year

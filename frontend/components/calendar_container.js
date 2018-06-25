@@ -1,6 +1,5 @@
 import { connect } from 'react-redux';
-import { fetchEvents } from '../actions/event_actions';
-import { groupAndSortEvents } from '../reducers/selectors';
+import { fetchAllEvents } from '../actions/event_actions';
 import Calendar from './calendar';
 
 const msp = (state) => {
@@ -11,7 +10,7 @@ const msp = (state) => {
 
 const mdp = (dispatch) => {
   return ({
-    fetchEvents: (date) => dispatch(fetchEvents(date))
+    fetchAllEvents: (date) => dispatch(fetchAllEvents(date))
   });
 }
 

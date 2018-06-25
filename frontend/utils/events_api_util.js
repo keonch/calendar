@@ -1,5 +1,5 @@
-export async function fetchEvents(date) {
-  let response = await fetch(`api/events?date=${date}`);
+export async function fetchAllEvents() {
+  let response = await fetch(`api/events`);
   let payload = await response.json();
   return payload;
 };

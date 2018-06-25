@@ -17,11 +17,11 @@ const receiveEvent = ({ event }) => {
   });
 };
 
-export const fetchEvents = (date) => {
+export const fetchAllEvents = () => {
   return (
     (dispatch) => {
       return (
-        APIUtils.fetchEvents(date)
+        APIUtils.fetchAllEvents()
         .then((payload) => dispatch(receiveEvents(payload)))
       );
     }

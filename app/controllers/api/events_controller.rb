@@ -3,10 +3,7 @@ class Api::EventsController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def index
-    date = Time.parse(params[:date])
-    from_date = date.beginning_of_month
-    to_date = date.end_of_month
-    @events = Event.between_dates(from_date, to_date)
+    @events = Event.all
   end
 
   def create
