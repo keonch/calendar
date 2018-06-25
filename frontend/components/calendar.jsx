@@ -1,5 +1,5 @@
 import React from 'react';
-import EventIndexForm from './event_index_form';
+import EventIndex from './event_index';
 
 export default class Calendar extends React.Component {
   constructor(props) {
@@ -11,9 +11,12 @@ export default class Calendar extends React.Component {
     this.state = {
       month: this.currentDate.getMonth(),
       year: this.currentDate.getFullYear(),
-      showIndexForm: false,
-      indexFormDate: this.currentDate
+      showIndex: false,
+      indexDate: this.currentDate
     }
+
+    this.toggleIndex = this.toggleIndex.bind(this);
+    this.closeIndex = this.closeIndex.bind(this);
   }
 
   componentDidMount() {
@@ -34,7 +37,7 @@ export default class Calendar extends React.Component {
         <td
           className="day"
           key={i + blankDays}
-          onClick={(e) => this.toggleEventIndexForm(e, day)}>
+          onClick={() => this.toggleIndex(day)}>
           {day}
         </td>
       )
@@ -61,19 +64,25 @@ export default class Calendar extends React.Component {
     })
   }
 
-  toggleEventIndexForm(e, day) {
-    const indexFormDate = new Date(this.state.year, this.state.month, day);
-    if (this.state.showIndexForm) {
-      day !== this.state.indexFormDate.getDate() ?
-      this.setState({indexFormDate})
+  toggleIndex(day) {
+    const indexDate = new Date(this.state.year, this.state.month, day);
+    if (this.state.showIndex) {
+      day !== this.state.indexDate.getDate() ?
+      this.setState({indexDate})
       :
-      this.setState({showIndexForm: false})
+      this.closeIndex()
     } else {
       this.setState({
-        showIndexForm: true,
-        indexFormDate
-      })
+        showIndex: true,
+        indexDate
+      });
     }
+  }
+
+  closeIndex() {
+    this.setState({
+      showIndex: false
+    })
   }
 
   render() {
@@ -107,31 +116,32 @@ export default class Calendar extends React.Component {
 
     return (
       <div className="container">
-        <table className="calendar">
-          <thead>
-            <tr>
-              <th>
-                <i
-                  className={`fas fa-caret-left`}
-                  onClick={() => this.changeMonth(-1)}/>
-                <i
-                  className={`fas fa-caret-right`}
-                  onClick={() => this.changeMonth(1)}/>
-                  {this.months[this.state.month]}
-              </th>
-              <th>{this.state.year}</th>
-            </tr>
-          </thead>
+        <header>
+          <i
+            className={`fas fa-caret-left`}
+            onClick={() => this.changeMonth(-1)}/>
+          {this.months[this.state.month]}
+          <i
+            className={`fas fa-caret-right`}
+            onClick={() => this.changeMonth(1)}/>
+          {this.state.year}
+        </header>
 
+        <table className="calendar">
           <tbody>
             <tr className="weekdays">{weekdays}</tr>
             {slots}
           </tbody>
         </table>
-        {this.state.showIndexForm &&
-          <EventIndexForm
-            showForm={false}
-            date={this.state.indexFormDate}/>}
+
+        {
+          this.state.showIndex &&
+          <EventIndex
+            months={this.months}
+            weekdays={this.weekdays}
+            closeIndex={this.closeIndex}
+            date={this.state.indexDate}/>
+        }
       </div>
     )
   }

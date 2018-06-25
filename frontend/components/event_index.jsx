@@ -1,14 +1,17 @@
 import React from 'react';
+import EventForm from './event_form';
 
 export default class EventIndexForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       date: props.date,
-      showForm: false
+      showForm: false,
+      description: "",
+      start: null,
+      end: null
     };
     this.toggleForm = this.toggleForm.bind(this);
-    this.renderForm = this.renderForm.bind(this);
   }
 
   static getDerivedStateFromProps(props, state) {
@@ -17,14 +20,12 @@ export default class EventIndexForm extends React.Component {
     });
   }
 
-  renderForm() {
-    return (
-      <form>
-        <label>Description<input type="text"/></label>
-        <input type="submit"/>
-        <div onClick={() => this.toggleForm()}>Cancel</div>
-      </form>
-    )
+  componentDidUpdate(prevProps) {
+    if (this.state.date !== prevProps.date) {
+      this.setState({
+        showForm: false
+      })
+    }
   }
 
   toggleForm() {
@@ -36,12 +37,13 @@ export default class EventIndexForm extends React.Component {
   render() {
     return (
       <div>
-        <h1>{this.state.date.getDate()}</h1>
-        <h1>{this.state.date.getMonth()}</h1>
-        <h1>{this.state.date.getFullYear()}</h1>
+        <div onClick={() => this.props.closeIndex()}>Close</div>
+        <h1>
+          {`${this.props.weekdays[this.state.date.getDay()]}, ${this.props.months[this.state.date.getMonth()]} ${this.state.date.getDate()}`}
+        </h1>
         {
           this.state.showForm ?
-          this.renderForm() :
+          <EventForm toggleForm={this.toggleForm} date={this.state.date}/> :
           <div onClick={() => this.toggleForm()}>Create An Event</div>
         }
       </div>

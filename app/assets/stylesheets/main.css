@@ -1,3 +1,7 @@
 .fas {
   font-size: 30px;
 }
+
+.start, .end {
+  width: 400px;
+}
