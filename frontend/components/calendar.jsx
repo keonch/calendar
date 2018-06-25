@@ -30,7 +30,7 @@ export default class Calendar extends React.Component {
     const days = [];
 
     for (let i = 0; i < firstDay; i++) {
-      days.push(<td className="empty" key={i}></td>)
+      days.push(<div className="empty" key={i}></div>)
     };
 
     const blankDays = days.length;
@@ -52,13 +52,13 @@ export default class Calendar extends React.Component {
         ""
 
       days.push(
-        <td
+        <div
           className="day"
           key={i + blankDays}
           onClick={() => this.toggleIndex(day)}>
-          <div>{day}</div>
+          <h2>{day}</h2>
           {eventDescriptions}
-        </td>
+        </div>
       );
     }
     return days;
@@ -78,7 +78,8 @@ export default class Calendar extends React.Component {
     }
     this.setState({
       month,
-      year
+      year,
+      showIndex: false
     })
   }
 
@@ -105,7 +106,7 @@ export default class Calendar extends React.Component {
 
   renderWeekdays() {
     return this.weekdays.map((weekday) => (
-      <td key={weekday} className="weekday">{weekday}</td>
+      <div key={weekday} className="weekday">{weekday}</div>
     ));
   }
 
@@ -113,21 +114,28 @@ export default class Calendar extends React.Component {
     const days = this.getDays();
     const rows = [];
     let row = new Array();
+    let wrapCount = 0;
 
     days.forEach((day, i) => {
       if (row.length < 7) {
         row.push(day);
       } else {
-        rows.push(row);
-        row = new Array();
-        row.push(day);
+        if (rows.length === 4) {
+          const prevSlot = row[wrapCount];
+          row[wrapCount] = <div key={i}>{prevSlot}{day}</div>
+          wrapCount++;
+        } else {
+          rows.push(row);
+          row = new Array();
+          row.push(day);
+        }
       }
 
       if (i === days.length - 1) rows.push(row);
     });
 
     return rows.map((row, i) => (
-        <tr key={i} className={`row-${i + 1}`}>{row}</tr>
+        <div key={i} className={`row-${i + 1}`}>{row}</div>
     ));
   }
 
@@ -145,12 +153,10 @@ export default class Calendar extends React.Component {
           {this.state.year}
         </header>
 
-        <table className="calendar">
-          <tbody>
-            <tr className="weekdays">{this.renderWeekdays()}</tr>
-            {this.renderRows()}
-          </tbody>
-        </table>
+        <section className="calendar">
+          <div className="weekdays">{this.renderWeekdays()}</div>
+          {this.renderRows()}
+        </section>
 
         {
           this.state.showIndex &&
