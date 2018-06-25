@@ -1,5 +1,6 @@
 import React from 'react';
 import EventIndex from './event_index';
+import { groupAndSortEvents } from '../reducers/selectors';
 
 export default class Calendar extends React.Component {
   constructor(props) {
@@ -35,13 +36,15 @@ export default class Calendar extends React.Component {
     const blankDays = days.length;
     const daysInMonth = new Date(this.state.year, this.state.month + 1, 0).getDate();
 
+    const sortedEvents = groupAndSortEvents(this.props.events, this.state.year, this.state.month);
+
     for (let i = 0; i < daysInMonth; i++) {
       const day = i + 1;
-      const dayEvents = this.props.sortedEvents[day];
+      const dayEvents = sortedEvents[day];
       const eventDescriptions = dayEvents ?
         dayEvents.map((eventId) => {
           return (
-            <div>
+            <div key={eventId}>
               {this.props.events[eventId].description}
             </div>
           )
@@ -73,6 +76,7 @@ export default class Calendar extends React.Component {
     } else {
       month = this.state.month + increment
     }
+    this.props.fetchEvents(new Date(year, month, 1));
     this.setState({
       month,
       year

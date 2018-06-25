@@ -1,13 +1,19 @@
-export const groupAndSortDays = (events) => {
+export const groupAndSortEvents = (events, year, month) => {
   const result = new Object();
 
   Object.values(events).forEach((event) => {
-    const day = new Date(Date.parse(event.startTime)).getDate();
-    if (result[day] !== undefined) {
-      result[day].push(event.id);
-    } else {
-      result[day] = new Array();
-      result[day].push(event.id);
+    const eventDate = new Date(Date.parse(event.startTime)),
+          eventDay = eventDate.getDate(),
+          eventMonth = eventDate.getMonth(),
+          eventYear = eventDate.getFullYear()
+
+    if (eventYear === year && eventMonth === month) {
+      if (result[eventDay] !== undefined) {
+        result[eventDay].push(event.id);
+      } else {
+        result[eventDay] = new Array();
+        result[eventDay].push(event.id);
+      }
     }
   });
 
