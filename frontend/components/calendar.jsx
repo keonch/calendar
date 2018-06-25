@@ -1,5 +1,6 @@
 import React from 'react';
 import EventIndex from './event_index';
+import CalendarDayItem from './calendar_day_item';
 
 export default class Calendar extends React.Component {
   constructor(props) {
@@ -11,55 +12,18 @@ export default class Calendar extends React.Component {
     this.state = {
       month: this.currentDate.getMonth(),
       year: this.currentDate.getFullYear(),
+      yearMonth: this.currentDate.getFullYear().toString().concat(this.currentDate.getMonth()),
       showIndex: false,
       indexDate: this.currentDate
     }
 
     this.toggleIndex = this.toggleIndex.bind(this);
     this.closeIndex = this.closeIndex.bind(this);
-    this.getDays = this.getDays.bind(this);
+    this.renderDays = this.renderDays.bind(this);
   }
 
   componentDidMount() {
     this.props.fetchAllEvents();
-  }
-
-  getDays() {
-    const firstDay = new Date(this.state.year, this.state.month, 1).getDay();
-    const days = [];
-
-    for (let i = 0; i < firstDay; i++) {
-      days.push(<div className="day" key={i}></div>)
-    };
-
-    const blankDays = days.length;
-    const daysInMonth = new Date(this.state.year, this.state.month + 1, 0).getDate();
-
-    for (let i = 0; i < daysInMonth; i++) {
-      const day = i + 1;
-      // const dayEvents = sortedEvents[day];
-      // const eventDescriptions = dayEvents ?
-      //   dayEvents.map((eventId) => {
-      //     return (
-      //       <div key={eventId}>
-      //         {this.props.events[eventId].description}
-      //       </div>
-      //     )
-      //   }) :
-      //   ""
-
-      days.push(
-        <div
-          className="day"
-          key={i + blankDays}
-          onClick={() => this.toggleIndex(day)}>
-          <h2>{day}</h2>
-
-        </div>
-      );
-                // {eventDescriptions}
-    }
-    return days;
   }
 
   changeMonth(increment) {
@@ -77,6 +41,7 @@ export default class Calendar extends React.Component {
     this.setState({
       month,
       year,
+      yearMonth: year.toString().concat(month),
       showIndex: false
     })
   }
@@ -108,33 +73,32 @@ export default class Calendar extends React.Component {
     ));
   }
 
-  renderRows() {
-    const days = this.getDays();
-    const rows = [];
-    let row = new Array();
-    let wrapCount = 0;
+  renderDays() {
+    const days = [];
 
-    days.forEach((day, i) => {
-      if (row.length < 7) {
-        row.push(day);
-      } else {
-        if (rows.length === 4) {
-          const prevSlot = row[wrapCount];
-          row[wrapCount] = <div className="day" key={i}>{prevSlot}{day}</div>
-          wrapCount++;
-        } else {
-          rows.push(row);
-          row = new Array();
-          row.push(day);
-        }
-      }
+    // create blank days before the first day of the month
+    const firstWeekday = new Date(this.state.year, this.state.month, 1).getDay();
+    for (let i = 0; i < firstWeekday; i++) {
+      days.push(<div className="blank" key={i}></div>)
+    };
+    const numberOfBlanks = days.length;
 
-      if (i === days.length - 1) rows.push(row);
-    });
+    const daysInMonth = new Date(this.state.year, this.state.month + 1, 0).getDate();
+    for (let i = 0; i < daysInMonth; i++) {
+      const day = i + 1;
+      let eventsArray = this.props.sortedEvents[this.state.yearMonth] ?
+        this.props.sortedEvents[this.state.yearMonth][day] : null;
+      if (!eventsArray) eventsArray = [];
 
-    return rows.map((row, i) => (
-        <div key={i} className={`row row-${i + 1}`}>{row}</div>
-    ));
+      days.push(
+        <CalendarDayItem
+          key={i + numberOfBlanks}
+          day={day}
+          toggleIndex={this.toggleIndex}
+          eventsArray={eventsArray}/>
+      );
+    }
+    return days;
   }
 
   render() {
@@ -152,8 +116,8 @@ export default class Calendar extends React.Component {
         </header>
 
         <section className="calendar">
-          <div className="weekdays">{this.renderWeekdays()}</div>
-          {this.renderRows()}
+          {this.renderWeekdays()}
+          {this.renderDays()}
         </section>
 
         {
