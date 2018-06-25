@@ -17,6 +17,7 @@ export default class Calendar extends React.Component {
 
     this.toggleIndex = this.toggleIndex.bind(this);
     this.closeIndex = this.closeIndex.bind(this);
+    this.getDays = this.getDays.bind(this);
   }
 
   componentDidMount() {
@@ -26,23 +27,37 @@ export default class Calendar extends React.Component {
   getDays() {
     const firstDay = new Date(this.state.year, this.state.month, 1).getDay();
     const days = [];
+
     for (let i = 0; i < firstDay; i++) {
       days.push(<td className="empty" key={i}></td>)
     };
+
     const blankDays = days.length;
     const daysInMonth = new Date(this.state.year, this.state.month + 1, 0).getDate();
+
     for (let i = 0; i < daysInMonth; i++) {
       const day = i + 1;
+      const dayEvents = this.props.sortedEvents[day];
+      const eventDescriptions = dayEvents ?
+        dayEvents.map((eventId) => {
+          return (
+            <div>
+              {this.props.events[eventId].description}
+            </div>
+          )
+        }) :
+        ""
+
       days.push(
         <td
           className="day"
           key={i + blankDays}
           onClick={() => this.toggleIndex(day)}>
           <div>{day}</div>
+          {eventDescriptions}
         </td>
-      )
+      );
     }
-
     return days;
   }
 

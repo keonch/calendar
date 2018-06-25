@@ -4,9 +4,9 @@ import { groupAndSortDays } from '../reducers/selectors';
 import Calendar from './calendar';
 
 const msp = (state) => {
-  groupAndSortDays(state.entities.events);
   return ({
-    events: state.entities.events
+    events: state.entities.events,
+    sortedEvents: groupAndSortDays(state.entities.events)
   });
 }
 
