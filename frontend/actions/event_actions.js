@@ -3,17 +3,17 @@ import * as APIUtils from '../utils/events_api_util';
 export const RECEIVE_EVENTS = 'RECEIVE_EVENTS';
 export const RECEIVE_EVENT = 'RECEIVE_EVENT';
 
-const receiveEvents = (payload) => {
+const receiveEvents = ({ events }) => {
   return ({
     type: RECEIVE_EVENTS,
-    payload
+    events
   });
 };
 
-const receiveEvent = (payload) => {
+const receiveEvent = ({ event }) => {
   return ({
     type: RECEIVE_EVENT,
-    payload
+    event
   });
 };
 

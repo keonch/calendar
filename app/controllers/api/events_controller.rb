@@ -3,7 +3,7 @@ class Api::EventsController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def index
-    date = Date.parse(params[:date])
+    date = Time.parse(params[:date])
     from_date = date.beginning_of_month
     to_date = date.end_of_month
     @events = Event.between_dates(from_date, to_date)
@@ -18,7 +18,7 @@ class Api::EventsController < ApplicationController
       end_time: end_time
     )
     if @event.save
-      render json: @event
+      render :show
     else
       render json: @event.errors.full_messages, status: 422
     end
