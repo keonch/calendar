@@ -38,7 +38,7 @@ export default class Calendar extends React.Component {
           className="day"
           key={i + blankDays}
           onClick={() => this.toggleIndex(day)}>
-          {day}
+          <div>{day}</div>
         </td>
       )
     }
@@ -85,11 +85,13 @@ export default class Calendar extends React.Component {
     })
   }
 
-  render() {
-    const weekdays = this.weekdays.map((weekday) => (
+  renderWeekdays() {
+    return this.weekdays.map((weekday) => (
       <td key={weekday} className="weekday">{weekday}</td>
     ));
+  }
 
+  renderRows() {
     const days = this.getDays();
     const rows = [];
     let row = new Array();
@@ -103,17 +105,15 @@ export default class Calendar extends React.Component {
         row.push(day);
       }
 
-      if (i === days.length - 1) {
-        rows.push(row);
-      }
+      if (i === days.length - 1) rows.push(row);
     });
 
-    const slots = rows.map((row, i) => {
-      return (
+    return rows.map((row, i) => (
         <tr key={i} className={`row-${i + 1}`}>{row}</tr>
-      )
-    });
+    ));
+  }
 
+  render() {
     return (
       <div className="app">
         <header>
@@ -129,8 +129,8 @@ export default class Calendar extends React.Component {
 
         <table className="calendar">
           <tbody>
-            <tr className="weekdays">{weekdays}</tr>
-            {slots}
+            <tr className="weekdays">{this.renderWeekdays()}</tr>
+            {this.renderRows()}
           </tbody>
         </table>
 
