@@ -115,7 +115,7 @@ export default class Calendar extends React.Component {
     });
 
     return (
-      <div className="container">
+      <div className="app">
         <header>
           <i
             className={`fas fa-caret-left`}

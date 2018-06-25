@@ -7,7 +7,10 @@ export async function fetchEvents(date) {
 export async function postEvent(data) {
   let response = await fetch(`api/events`, {
     method: 'POST',
-    data
+    body: JSON.stringify(data),
+    headers: {
+      'Content-Type': 'application/json'
+    }
   });
   let payload = await response.json();
   return payload;

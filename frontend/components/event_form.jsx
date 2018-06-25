@@ -3,19 +3,21 @@ import React from 'react';
 export default class EventForm extends React.Component {
   constructor(props) {
     super(props);
+    const year = props.date.getFullYear(),
+          month = props.date.getMonth(),
+          date = props.date.getDate()
 
     this.state = {
       description: "",
       start: 10.0,
       end: 24.4,
       startTime: props.date,
-      endTime: null
+      endTime: new Date(year, month, date, 23, 59, 59, 999)
     }
 
     this.updateDescription = this.updateDescription.bind(this);
     this.updateStartTime = this.updateStartTime.bind(this);
     this.updateEndTime = this.updateEndTime.bind(this);
-    this.renderFormattedTime = this.renderFormattedTime.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -71,16 +73,15 @@ export default class EventForm extends React.Component {
         minutes = totalMinutes % 60
 
     if (hours === 24) {
-      time.setHours(23,59,59,999);
+      time.setHours(23, 59, 59, 999);
     } else {
       time.setHours(hours, minutes, 0, 0);
     }
     return time;
   }
 
-  // reads date object from state and parses to 12 hour AM/PM format
+  // parses from date object to 12-hour AM/PM string format
   renderFormattedTime(time) {
-    if (time === null) return "End of day";
     let hours = time.getHours();
     let minutes = time.getMinutes();
     if (minutes === 59) return "End of day";
@@ -97,9 +98,11 @@ export default class EventForm extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     const data = Object.assign({}, {
-      description: this.state.description,
-      startTime: this.state.startTime,
-      endTime: this.state.endTime
+      event: {
+        description: this.state.description,
+        startTime: this.state.startTime,
+        endTime: this.state.endTime
+      }
     });
     this.props.submitEvent(data);
     this.props.closeForm();
@@ -139,7 +142,7 @@ export default class EventForm extends React.Component {
           onChange={this.updateEndTime}/>
 
         <input type="submit"/>
-        <div onClick={() => this.props.toggleForm()}>Cancel</div>
+        <div onClick={() => this.props.closeForm()}>Cancel</div>
       </form>
     );
   }
