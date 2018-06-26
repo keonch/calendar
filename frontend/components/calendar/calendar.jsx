@@ -104,6 +104,19 @@ export default class Calendar extends React.Component {
       );
     }
 
+    // wraps days onto prev week when past 35 blocks on the calendar
+    for (let i = days.length; i > 35; i--) {
+      const idx = 27 + i - 35;
+      const topDay = days[idx];
+      const bottomDay = days.pop();
+      days[idx] = (
+        <div className="day-stacked" key={idx}>
+          {topDay}
+          {bottomDay}
+        </div>
+      );
+    }
+
     for (let i = days.length; i < 35; i++) {
       days.push(<div className="blank" key={i}></div>)
     }
