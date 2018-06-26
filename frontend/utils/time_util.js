@@ -16,6 +16,7 @@ export const formatTime = (time) => {
   return `${hours}:${minutes} ${period}`
 };
 
+// parses time strings into integer values for "slider" HTML element
 export const parseTimeToSliderValue = (time) => {
   const date = new Date(Date.parse(time));
   const minutes = date.getHours() * 60 + date.getMinutes();

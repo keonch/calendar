@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
-import { fetchAllEvents } from '../actions/event_actions';
-import { groupAndSortEvents } from '../reducers/selectors';
+import { fetchAllEvents } from '../../actions/event_actions';
+import { groupAndSortEvents } from '../../reducers/selectors';
 import Calendar from './calendar';
 
 const msp = (state) => {

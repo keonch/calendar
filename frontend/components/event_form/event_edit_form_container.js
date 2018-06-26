@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import EventForm from './event_form';
-import { editEvent } from '../actions/event_actions';
-import { parseTimeToSliderValue } from '../utils/time_util';
+import { editEvent } from '../../actions/event_actions';
+import { parseTimeToSliderValue } from '../../utils/time_util';
 
 const msp = (state, ownProps) => {
   return ({

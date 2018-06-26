@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { deleteEvent } from '../actions/event_actions';
+import { deleteEvent } from '../../actions/event_actions';
 import EventIndexItem from './event_index_item';
 
 const mdp = (dispatch) => {

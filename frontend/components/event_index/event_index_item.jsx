@@ -1,6 +1,6 @@
 import React from 'react';
-import { formatTime } from '../utils/time_util';
-import EventForm from './event_edit_form_container';
+import { formatTime } from '../../utils/time_util';
+import EventForm from '../event_form/event_edit_form_container';
 
 export default class EventIndexItem extends React.Component {
   constructor(props) {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { formatTime } from '../utils/time_util';
+import { formatTime } from '../../utils/time_util';
 
 export default class EventForm extends React.Component {
   constructor(props) {
@@ -99,6 +99,11 @@ export default class EventForm extends React.Component {
     return (
       <form onSubmit={this.handleSubmit}>
         <div onClick={() => this.props.closeForm()}>Cancel</div>
+
+        {
+          this.props.type === "edit" &&
+          <div onClick={() => this.props.deleteEvent(this.props.eventId)}>Delete</div>
+        }
 
         <label>Description</label>
         <input

@@ -1,5 +1,5 @@
 import React from 'react';
-import EventIndex from './event_index_container';
+import EventIndex from '../event_index/event_index_container';
 import CalendarDayItem from './calendar_day_item';
 import { CSSTransitionGroup } from 'react-transition-group'
 

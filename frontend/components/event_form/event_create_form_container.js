@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import EventForm from './event_form';
-import { submitEvent } from '../actions/event_actions';
+import { submitEvent } from '../../actions/event_actions';
 
 const msp = (state, ownProps) => {
   const description = "",

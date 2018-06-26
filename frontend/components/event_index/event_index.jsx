@@ -1,5 +1,5 @@
 import React from 'react';
-import EventForm from './event_create_form_container';
+import EventForm from '../event_form/event_create_form_container';
 import EventIndexItem from './event_index_item_container';
 
 export default class EventIndexForm extends React.Component {
