@@ -37,44 +37,55 @@ export default class EventIndexForm extends React.Component {
   }
 
   renderEvents() {
-    return this.props.eventsArray.map((eventId) => {
-      return (
-        <EventIndexItem
-          key={eventId}
-          date={this.state.date}
-          event={this.props.events[eventId]}/>
-      );
-    });
+    const events = this.props.eventsArray.length > 0 ?
+      this.props.eventsArray.map((eventId) => {
+        return (
+          <EventIndexItem
+            key={eventId}
+            date={this.state.date}
+            event={this.props.events[eventId]}/>
+        );
+      })
+      :
+      <div className="empty">Empty :(</div>;
+
+    return events;
   }
 
   render() {
     return (
       <div className="index">
-        <div onClick={() => this.props.closeIndex()}>Close</div>
+        <div
+          className="close-index"
+          onClick={() => this.props.closeIndex()}>
+          <div className="fas fa-angle-double-right"/>
+        </div>
 
-        <h3 className="date">
+        <div className="index-content">
+          <h3 className="date">
+            {
+              `${this.props.weekdays[this.state.date.getDay()]}, ` +
+              `${this.props.months[this.state.date.getMonth()]} ` +
+              `${this.state.date.getDate()}`
+            }
+          </h3>
+
           {
-            `${this.props.weekdays[this.state.date.getDay()]}, ` +
-            `${this.props.months[this.state.date.getMonth()]} ` +
-            `${this.state.date.getDate()}`
-          }
-        </h3>
-
-        {
-          this.state.showForm ?
+            this.state.showForm ?
             <EventForm
               closeForm={this.toggleForm}
               date={this.state.date}/>
-          :
+            :
             <div
               className="create-event-btn"
               onClick={() => this.toggleForm()}>
               Create An Event
             </div>
-        }
+          }
 
-        <div className="event-index">
-          {this.renderEvents()}
+          <div className="event-index">
+            {this.renderEvents()}
+          </div>
         </div>
       </div>
     );

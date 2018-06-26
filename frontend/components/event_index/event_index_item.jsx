@@ -37,12 +37,23 @@ export default class EventIndexItem extends React.Component {
               date={this.props.date}
               closeForm={this.toggleForm}/>
           :
-            <div>
-              {this.props.event.description}
-              {startTime}
-              {endTime}
-              <div onClick={() => this.handleDelete()}>Delete</div>
-              <div onClick={() => this.toggleForm()}>Edit</div>
+            <div className="event-item-show">
+              <div className="event-item-description">
+                {this.props.event.description}
+              </div>
+              <div className="event-item-start event-item-time">
+                {startTime} - {endTime}
+              </div>
+              <div
+                className="delete-event"
+                onClick={() => this.handleDelete()}>
+                Delete
+              </div>
+              <div
+                className="edit-event"
+                onClick={() => this.toggleForm()}>
+                Edit
+              </div>
             </div>
         }
       </div>

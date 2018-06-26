@@ -1,3 +1,8 @@
+body {
+  margin: 0;
+  overflow: hidden;
+}
+
 .app {
   position: relative;
   max-width: 1150px;
@@ -97,7 +102,7 @@ h1 {
 
 .day-event {
   background: #696eef;
-  color: white;
+  color: #f5f5f5;
   font-size: 13px;
   margin: 1px 2px;
   padding: 2px 4px;

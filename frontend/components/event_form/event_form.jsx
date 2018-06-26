@@ -102,7 +102,7 @@ export default class EventForm extends React.Component {
 
         {
           this.props.type === "edit" &&
-          <div onClick={() => this.props.deleteEvent(this.props.eventId)}>Delete</div>
+          <div className="delete-event" onClick={() => this.props.deleteEvent(this.props.eventId)}>Delete</div>
         }
 
         <label>Description</label>
