@@ -4,7 +4,11 @@ import { connect } from 'react-redux';
 const CalendarDayItem = (props) => {
   const eventDescriptions = props.eventsArray.map((eventId) => {
     return (
-      <div key={eventId}>{props.events[eventId].description}</div>
+      <div
+        className="day-event"
+        key={eventId}>
+        {props.events[eventId].description}
+      </div>
     );
   });
   return (

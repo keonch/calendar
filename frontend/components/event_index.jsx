@@ -42,10 +42,12 @@ export default class EventIndexForm extends React.Component {
             startTime = formatTime(event.startTime),
             endTime = formatTime(event.endTime);
       return (
-        <div className="index-event">
+        <div
+          key={eventId}
+          className="index-event">
           <div>{event.description}</div>
-          <div>{startTime}</div>
-          <div>{endTime}</div>
+          <div>Starting: {startTime}</div>
+          <div>Ending: {endTime}</div>
         </div>
       );
     });

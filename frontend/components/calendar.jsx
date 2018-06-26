@@ -1,6 +1,7 @@
 import React from 'react';
 import EventIndex from './event_index_container';
 import CalendarDayItem from './calendar_day_item';
+import { CSSTransitionGroup } from 'react-transition-group'
 
 export default class Calendar extends React.Component {
   constructor(props) {
@@ -124,15 +125,22 @@ export default class Calendar extends React.Component {
           {this.renderDays()}
         </section>
 
-        {
-          this.state.showIndex &&
-          <EventIndex
-            months={this.months}
-            weekdays={this.weekdays}
-            closeIndex={this.closeIndex}
-            getEventsArray={this.getEventsArray}
-            date={this.state.indexDate}/>
-        }
+        <CSSTransitionGroup
+          transitionName="index"
+          transitionEnter={true}
+          transitionLeave={true}
+          transitionEnterTimeout={500}
+          transitionLeaveTimeout={300}>
+          {
+            this.state.showIndex &&
+            <EventIndex
+              months={this.months}
+              weekdays={this.weekdays}
+              closeIndex={this.closeIndex}
+              getEventsArray={this.getEventsArray}
+              date={this.state.indexDate}/>
+          }
+        </CSSTransitionGroup>
       </div>
     )
   }
