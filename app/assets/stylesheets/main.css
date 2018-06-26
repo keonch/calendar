@@ -5,9 +5,10 @@ body {
 
 .app {
   position: relative;
-  max-width: 1150px;
+  max-width: 1171px;
   display: flex;
   font-family: 'Lato', sans-serif;
+  margin: 8px 0 0 8px;
 }
 
 .calendar {
@@ -28,9 +29,9 @@ header {
   flex-flow: row nowrap;
   justify-content: center;
   align-items: center;
-  border-top: 8px solid grey;
+  border-top: 18px solid grey;
   border-right: 1px solid grey;
-  border-bottom: 3px solid grey;
+  border-bottom: 5px solid grey;
 }
 
 i {

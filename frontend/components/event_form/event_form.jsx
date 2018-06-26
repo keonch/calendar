@@ -97,26 +97,24 @@ export default class EventForm extends React.Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <div onClick={() => this.props.closeForm()}>Cancel</div>
+      <form className="event-form" onSubmit={this.handleSubmit}>
+        <div className="event-form-cancel" onClick={() => this.props.closeForm()}>Cancel</div>
 
         {
           this.props.type === "edit" &&
           <div className="delete-event" onClick={() => this.props.deleteEvent(this.props.eventId)}>Delete</div>
         }
 
-        <label>Description</label>
-        <input
-          className="description"
-          type="text"
+        <label className="description-label">Description</label>
+        <textarea
+          className="form-description"
           value={this.state.description}
           placeholder="Enter event description"
           onChange={this.updateDescription}/>
 
-        <label>Start Time</label>
-        {formatTime(this.state.startTime)}
+        <label className="label-start">Start Time {formatTime(this.state.startTime)}</label>
         <input
-          className="start"
+          className="slider form-start"
           type="range"
           min="10"
           max="24.4"
@@ -124,10 +122,9 @@ export default class EventForm extends React.Component {
           value={this.state.start}
           onChange={this.updateStartTime}/>
 
-        <label>End Time</label>
-        {formatTime(this.state.endTime)}
+        <label className="label-end">End Time {formatTime(this.state.endTime)}</label>
         <input
-          className="end"
+          className="slider form-end"
           type="range"
           min="10"
           max="24.4"
@@ -135,7 +132,7 @@ export default class EventForm extends React.Component {
           value={this.state.end}
           onChange={this.updateEndTime}/>
 
-        <input type="submit"/>
+        <input className="event-submit" type="submit"/>
       </form>
     );
   }
