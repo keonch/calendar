@@ -1,5 +1,6 @@
 import React from 'react';
 import EventForm from './event_form_container';
+import { formatTime } from '../utils/time_format_util';
 
 export default class EventIndexForm extends React.Component {
   constructor(props) {
@@ -12,6 +13,7 @@ export default class EventIndexForm extends React.Component {
       end: null
     };
     this.toggleForm = this.toggleForm.bind(this);
+    this.renderEvents = this.renderEvents.bind(this);
   }
 
   static getDerivedStateFromProps(props, state) {
@@ -34,18 +36,40 @@ export default class EventIndexForm extends React.Component {
     });
   }
 
+  renderEvents() {
+    return this.props.eventsArray.map((eventId) => {
+      const event = this.props.events[eventId],
+            startTime = formatTime(event.startTime),
+            endTime = formatTime(event.endTime);
+      return (
+        <div className="index-event">
+          <div>{event.description}</div>
+          <div>{startTime}</div>
+          <div>{endTime}</div>
+        </div>
+      );
+    });
+  }
+
   render() {
     return (
       <div className="index">
         <div onClick={() => this.props.closeIndex()}>Close</div>
         <h3 className="date">
-          {`${this.props.weekdays[this.state.date.getDay()]}, ${this.props.months[this.state.date.getMonth()]} ${this.state.date.getDate()}`}
+          {
+            `${this.props.weekdays[this.state.date.getDay()]}, ` +
+            `${this.props.months[this.state.date.getMonth()]} ` +
+            `${this.state.date.getDate()}`
+          }
         </h3>
         {
           this.state.showForm ?
           <EventForm closeForm={this.toggleForm} date={this.state.date}/> :
           <div onClick={() => this.toggleForm()}>Create An Event</div>
         }
+        <div className="index-events">
+          {this.renderEvents()}
+        </div>
       </div>
     );
   }

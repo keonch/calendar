@@ -18,7 +18,11 @@
     transform: translate3d(0, 0, 0);
   }
 }
-/* 
+
+.index-event {
+  border: solid 1px black;
+}
+/*
 .date {
   font-size: 20px;
   animation-duration: .5s;

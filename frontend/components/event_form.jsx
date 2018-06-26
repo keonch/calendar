@@ -1,4 +1,5 @@
 import React from 'react';
+import { formatTime } from '../utils/time_format_util';
 
 export default class EventForm extends React.Component {
   constructor(props) {
@@ -80,21 +81,6 @@ export default class EventForm extends React.Component {
     return time;
   }
 
-  // parses from date object to 12-hour AM/PM string format
-  renderFormattedTime(time) {
-    let hours = time.getHours();
-    let minutes = time.getMinutes();
-    if (minutes === 59) return "End of day";
-    let period = hours < 12 ? "AM" : "PM";
-
-    if (hours === 0) hours = 12;
-    if (hours < 10) hours = "0".concat(`${hours}`);
-    if (hours > 12) hours -= 12;
-    if (minutes < 10) minutes = "0".concat(`${minutes}`);
-
-    return `${hours}:${minutes} ${period}`
-  }
-
   handleSubmit(e) {
     e.preventDefault();
     const data = Object.assign({}, {
@@ -120,7 +106,7 @@ export default class EventForm extends React.Component {
           onChange={this.updateDescription}/>
 
         <label>Start Time</label>
-        {this.renderFormattedTime(this.state.startTime)}
+        {formatTime(this.state.startTime)}
         <input
           className="start"
           type="range"
@@ -131,7 +117,7 @@ export default class EventForm extends React.Component {
           onChange={this.updateStartTime}/>
 
         <label>End Time</label>
-        {this.renderFormattedTime(this.state.endTime)}
+        {formatTime(this.state.endTime)}
         <input
           className="end"
           type="range"

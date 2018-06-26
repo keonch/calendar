@@ -1,5 +1,5 @@
 import React from 'react';
-import EventIndex from './event_index';
+import EventIndex from './event_index_container';
 import CalendarDayItem from './calendar_day_item';
 
 export default class Calendar extends React.Component {
@@ -20,6 +20,7 @@ export default class Calendar extends React.Component {
     this.toggleIndex = this.toggleIndex.bind(this);
     this.closeIndex = this.closeIndex.bind(this);
     this.renderDays = this.renderDays.bind(this);
+    this.getEventsArray = this.getEventsArray.bind(this);
   }
 
   componentDidMount() {
@@ -73,6 +74,13 @@ export default class Calendar extends React.Component {
     ));
   }
 
+  getEventsArray(day) {
+    let eventsArray = this.props.sortedEvents[this.state.yearMonth] ?
+      this.props.sortedEvents[this.state.yearMonth][day] : null;
+    if (!eventsArray) eventsArray = [];
+    return eventsArray;
+  }
+
   renderDays() {
     const days = [];
 
@@ -86,16 +94,12 @@ export default class Calendar extends React.Component {
     const daysInMonth = new Date(this.state.year, this.state.month + 1, 0).getDate();
     for (let i = 0; i < daysInMonth; i++) {
       const day = i + 1;
-      let eventsArray = this.props.sortedEvents[this.state.yearMonth] ?
-        this.props.sortedEvents[this.state.yearMonth][day] : null;
-      if (!eventsArray) eventsArray = [];
-
       days.push(
         <CalendarDayItem
           key={i + numberOfBlanks}
           day={day}
           toggleIndex={this.toggleIndex}
-          eventsArray={eventsArray}/>
+          getEventsArray={this.getEventsArray}/>
       );
     }
     return days;
@@ -126,6 +130,7 @@ export default class Calendar extends React.Component {
             months={this.months}
             weekdays={this.weekdays}
             closeIndex={this.closeIndex}
+            getEventsArray={this.getEventsArray}
             date={this.state.indexDate}/>
         }
       </div>

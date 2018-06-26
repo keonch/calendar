@@ -17,9 +17,11 @@ const CalendarDayItem = (props) => {
   );
 };
 
-const msp = (state) => {
+const msp = (state, ownProps) => {
+  const eventsArray = ownProps.getEventsArray(ownProps.day);
   return ({
-    events: state.entities.events
+    events: state.entities.events,
+    eventsArray
   });
 };
 
