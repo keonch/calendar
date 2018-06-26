@@ -29,10 +29,4 @@ const msp = (state, ownProps) => {
   });
 };
 
-const mdp = (dispatch) => {
-  return ({
-
-  });
-};
-
-export default connect(msp, mdp)(CalendarDayItem);
+export default connect(msp, null)(CalendarDayItem);

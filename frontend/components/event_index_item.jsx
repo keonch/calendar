@@ -1,6 +1,6 @@
 import React from 'react';
-import { formatTime } from '../utils/time_format_util';
-import EventForm from './event_form_container';
+import { formatTime } from '../utils/time_util';
+import EventForm from './event_edit_form_container';
 
 export default class EventIndexItem extends React.Component {
   constructor(props) {
@@ -32,11 +32,10 @@ export default class EventIndexItem extends React.Component {
         {
           this.state.showForm ?
             <EventForm
-              type={"edit"}
-              description={this.props.event.description}
-              startTime={this.props.event.startTime}
-              endTime={this.props.event.endTime}
-              deleteEvent={this.props.deleteEvent}/>
+              event={this.props.event}
+              deleteEvent={this.props.deleteEvent}
+              date={this.props.date}
+              closeForm={this.toggleForm}/>
           :
             <div>
               {this.props.event.description}

@@ -57,3 +57,14 @@ export const deleteEvent = (eventId) => {
     }
   );
 };
+
+export const editEvent = (data) => {
+  return (
+    (dispatch) => {
+      return (
+        APIUtils.editEvent(data)
+        .then((payload) => dispatch(receiveEvent(payload)))
+      );
+    }
+  );
+};

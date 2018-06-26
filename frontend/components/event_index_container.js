@@ -10,10 +10,4 @@ const msp = (state, ownProps) => {
   });
 };
 
-const mdp = (dispatch) => {
-  return ({
-
-  });
-};
-
-export default connect(msp, mdp)(EventIndex);
+export default connect(msp, null)(EventIndex);

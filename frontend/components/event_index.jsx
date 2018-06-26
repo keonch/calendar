@@ -1,7 +1,6 @@
 import React from 'react';
-import EventForm from './event_form_container';
+import EventForm from './event_create_form_container';
 import EventIndexItem from './event_index_item_container';
-import { formatTime } from '../utils/time_format_util';
 
 export default class EventIndexForm extends React.Component {
   constructor(props) {
@@ -42,6 +41,7 @@ export default class EventIndexForm extends React.Component {
       return (
         <EventIndexItem
           key={eventId}
+          date={this.state.date}
           event={this.props.events[eventId]}/>
       );
     });

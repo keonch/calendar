@@ -23,3 +23,15 @@ export async function deleteEvent(eventId) {
   let payload = await response.json();
   return payload;
 }
+
+export async function editEvent(data) {
+  let response = await fetch(`api/events/${data.event.id}`, {
+    method: 'PUT',
+    body: JSON.stringify(data),
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  });
+  let payload = await response.json();
+  return payload;
+}

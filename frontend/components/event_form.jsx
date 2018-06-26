@@ -1,19 +1,15 @@
 import React from 'react';
-import { formatTime } from '../utils/time_format_util';
+import { formatTime } from '../utils/time_util';
 
 export default class EventForm extends React.Component {
   constructor(props) {
     super(props);
-    const year = props.date.getFullYear(),
-          month = props.date.getMonth(),
-          date = props.date.getDate()
-
     this.state = {
-      description: "",
-      start: 10.0,
-      end: 24.4,
-      startTime: props.date,
-      endTime: new Date(year, month, date, 23, 59, 59, 999)
+      description: props.description,
+      start: props.start,
+      end: props.end,
+      startTime: props.startTime,
+      endTime: props.endTime
     }
 
     this.updateDescription = this.updateDescription.bind(this);
@@ -90,7 +86,12 @@ export default class EventForm extends React.Component {
         endTime: this.state.endTime
       }
     });
-    this.props.submitEvent(data);
+    if (this.props.type === "create") {
+      this.props.submitEvent(data);
+    } else if (this.props.type === "edit") {
+      data.event.id = this.props.eventId;
+      this.props.editEvent(data);
+    }
     this.props.closeForm();
   }
 

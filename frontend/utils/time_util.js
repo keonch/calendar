@@ -14,4 +14,11 @@ export const formatTime = (time) => {
   if (minutes < 10) minutes = "0".concat(`${minutes}`);
 
   return `${hours}:${minutes} ${period}`
-}
+};
+
+export const parseTimeToSliderValue = (time) => {
+  const date = new Date(Date.parse(time));
+  const minutes = date.getHours() * 60 + date.getMinutes();
+  const value = (minutes / 100) + 10;
+  return value.toFixed(1);
+};
