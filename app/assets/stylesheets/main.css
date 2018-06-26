@@ -1,26 +1,113 @@
 .app {
-  max-width: 1100px;
   position: relative;
-  margin: auto;
-  display: grid;
-  grid-template-columns: minmax(500px, 800px);
-  grid-template-rows: 50px auto;
-  grid-template-areas:
-    "header"
-    "calendar";
+  max-width: 1150px;
+  display: flex;
 }
 
+.calendar {
+  display: grid;
+  font-family: 'Lato', sans-serif;
+  border-left: 1px solid grey;
+  grid-template-rows: auto auto auto;
+  grid-template-areas:
+    "header"
+    "days"
+}
+
+/* ==============================HEADER============================== */
 header {
   grid-area: header;
   display: flex;
   flex-flow: row nowrap;
   justify-content: center;
   align-items: center;
+  border-top: 8px solid grey;
+  border-right: 1px solid grey;
+  border-bottom: 3px solid grey;
 }
 
-.calendar {
-  grid-area: calendar;
+i {
+  color: grey;
+  font-size: 35px;
+  opacity: .8;
+  text-align: center;
+  padding: 0 9px;
+}
+
+i:hover {
+  border-radius: 50%;
+  background-color: lightgrey;
+}
+
+h1 {
+  width: 100px;
+  font-size: 20px;
+  text-align: center;
+  font-weight: 400;
+}
+
+/*==========================GRIDS ELEMENTS===========================*/
+.days {
+  grid-area: days;
   display: grid;
-  grid-template: 20px repeat(5, 1fr) / repeat(7, 1fr);
+  grid-template: repeat(6, auto) / repeat(7, auto);
   grid-auto-flow: row dense;
+}
+
+.weekday {
+  font-size: 15px;
+  min-width: 100px;
+  text-align: center;
+  padding: 5px 0;
+  border-bottom: 1px solid grey;
+  border-right: 1px solid grey;
+}
+
+/* ===========================DAY ELEMENTS=========================== */
+.day, .blank {
+  width: 120px;
+  height: 120px;
+  border-bottom: 1px solid grey;
+  border-right: 1px solid grey;
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.day:hover {
+  background: lightgrey;
+  cursor: pointer;
+}
+
+.blank {
+  background: #f1f1f1;
+}
+
+.day-number {
+  margin: 3px 0 2px 3px;
+}
+
+.day-event {
+  background: #696eef;
+  color: white;
+  font-size: 13px;
+  margin: 1px 2px;
+  padding: 2px 4px;
+  border-radius: 2px;
+  height: 15px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.day-event-extra {
+  background: linear-gradient(#696eef, #575ded);
+  color: white;
+  font-size: 13px;
+  margin: 1px 2px;
+  padding: 5px 4px 2px 4px;
+  border-radius: 2px;
+  height: 20px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }

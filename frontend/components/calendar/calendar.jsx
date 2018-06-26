@@ -103,26 +103,33 @@ export default class Calendar extends React.Component {
           getEventsArray={this.getEventsArray}/>
       );
     }
+
+    for (let i = days.length; i < 35; i++) {
+      days.push(<div className="blank" key={i}></div>)
+    }
+
     return days;
   }
 
   render() {
     return (
       <div className="app">
-        <header>
-          <i
-            className={`fas fa-angle-left`}
-            onClick={() => this.changeMonth(-1)}/>
-          <h1>{this.months[this.state.month]}</h1>
-          <i
-            className={`fas fa-angle-right`}
-            onClick={() => this.changeMonth(1)}/>
-          <h1>{this.state.year}</h1>
-        </header>
-
         <section className="calendar">
-          {this.renderWeekdays()}
-          {this.renderDays()}
+          <header>
+            <i
+              className={`fas fa-angle-left`}
+              onClick={() => this.changeMonth(-1)}/>
+            <h1>{this.months[this.state.month]}</h1>
+            <i
+              className={`fas fa-angle-right`}
+              onClick={() => this.changeMonth(1)}/>
+            <h1>{this.state.year}</h1>
+          </header>
+
+          <div className="days">
+            {this.renderWeekdays()}
+            {this.renderDays()}
+          </div>
         </section>
 
         <CSSTransitionGroup
