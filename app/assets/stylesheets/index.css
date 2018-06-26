@@ -64,6 +64,7 @@
   margin: 10px;
   padding: 10px 0;
   text-align: center;
+  width: 280px;
 }
 
 .create-event-btn:hover {
@@ -72,13 +73,13 @@
 }
 
 .event-item {
-  word-wrap: break-word;
   font-size: 14px;
   border-radius: 3px;
   margin: 10px;
   background: #696eef;
   color: #f5f5f5;
   position: relative;
+  width: 280px;
 }
 
 .event-item-show {
@@ -86,6 +87,8 @@
 }
 
 .event-item-description {
+  overflow-wrap: break-word;
+  overflow: hidden;
   border-radius: 3px;
   padding: 5px;
   background: #5e63d7;
