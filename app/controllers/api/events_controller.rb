@@ -21,6 +21,16 @@ class Api::EventsController < ApplicationController
     end
   end
 
+  def destroy
+    event = Event.find(params[:id])
+    if event
+      event.destroy
+      render json: event.id
+    else
+      render json: ["Not Found"], status: 404
+    end
+  end
+
   private
   def event_params
     params.require(:event).permit(:description, :startTime, :endTime)

@@ -97,6 +97,8 @@ export default class EventForm extends React.Component {
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
+        <div onClick={() => this.props.closeForm()}>Cancel</div>
+
         <label>Description</label>
         <input
           className="description"
@@ -128,7 +130,6 @@ export default class EventForm extends React.Component {
           onChange={this.updateEndTime}/>
 
         <input type="submit"/>
-        <div onClick={() => this.props.closeForm()}>Cancel</div>
       </form>
     );
   }

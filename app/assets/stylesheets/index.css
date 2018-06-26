@@ -17,30 +17,19 @@
 }
 
 @keyframes indexShow {
-  from {transform: translate3d(100%, 0, 0);}
-  to {transform: translate3d(0, 0, 0);}
+  from {transform: translate3d(100%, 0, 0)}
+  to {transform: translate3d(0, 0, 0)}
 }
 
 @keyframes indexClose {
-  from {transform: translate3d(0, 0, 0);}
-  to {transform: translate3d(100%, 0, 0);}
+  from {transform: translate3d(0, 0, 0)}
+  to {transform: translate3d(100%, 0, 0)}
 }
 
-.index-event {
-  border: solid 1px black;
-}
-/*
 .date {
   font-size: 20px;
-  animation-duration: .5s;
-  animation-name: dateHeaderFade;
 }
 
-@keyframes dateHeaderFade {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-} */
+.event-item {
+  border: solid 1px black;
+}

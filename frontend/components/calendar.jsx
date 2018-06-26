@@ -127,8 +127,6 @@ export default class Calendar extends React.Component {
 
         <CSSTransitionGroup
           transitionName="index"
-          transitionEnter={true}
-          transitionLeave={true}
           transitionEnterTimeout={500}
           transitionLeaveTimeout={300}>
           {

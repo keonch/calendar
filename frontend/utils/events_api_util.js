@@ -15,3 +15,11 @@ export async function postEvent(data) {
   let payload = await response.json();
   return payload;
 };
+
+export async function deleteEvent(eventId) {
+  let response = await fetch(`api/events/${eventId}`, {
+    method: 'DELETE'
+  });
+  let payload = await response.json();
+  return payload;
+}

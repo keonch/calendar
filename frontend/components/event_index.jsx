@@ -1,5 +1,6 @@
 import React from 'react';
 import EventForm from './event_form_container';
+import EventIndexItem from './event_index_item_container';
 import { formatTime } from '../utils/time_format_util';
 
 export default class EventIndexForm extends React.Component {
@@ -38,17 +39,10 @@ export default class EventIndexForm extends React.Component {
 
   renderEvents() {
     return this.props.eventsArray.map((eventId) => {
-      const event = this.props.events[eventId],
-            startTime = formatTime(event.startTime),
-            endTime = formatTime(event.endTime);
       return (
-        <div
+        <EventIndexItem
           key={eventId}
-          className="index-event">
-          <div>{event.description}</div>
-          <div>Starting: {startTime}</div>
-          <div>Ending: {endTime}</div>
-        </div>
+          event={this.props.events[eventId]}/>
       );
     });
   }
@@ -57,6 +51,7 @@ export default class EventIndexForm extends React.Component {
     return (
       <div className="index">
         <div onClick={() => this.props.closeIndex()}>Close</div>
+
         <h3 className="date">
           {
             `${this.props.weekdays[this.state.date.getDay()]}, ` +
@@ -64,12 +59,21 @@ export default class EventIndexForm extends React.Component {
             `${this.state.date.getDate()}`
           }
         </h3>
+
         {
           this.state.showForm ?
-          <EventForm closeForm={this.toggleForm} date={this.state.date}/> :
-          <div onClick={() => this.toggleForm()}>Create An Event</div>
+            <EventForm
+              closeForm={this.toggleForm}
+              date={this.state.date}/>
+          :
+            <div
+              className="create-event-btn"
+              onClick={() => this.toggleForm()}>
+              Create An Event
+            </div>
         }
-        <div className="index-events">
+
+        <div className="event-index">
           {this.renderEvents()}
         </div>
       </div>
