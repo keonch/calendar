@@ -1,6 +1,6 @@
 import React from 'react';
 import EventIndex from '../event_index/event_index_container';
-import CalendarDayItem from './calendar_day_item';
+import CalendarDayItem from './calendar_day_item_container';
 import { CSSTransitionGroup } from 'react-transition-group'
 
 export default class Calendar extends React.Component {
@@ -107,8 +107,8 @@ export default class Calendar extends React.Component {
     // wraps days onto prev week when past 35 blocks on the calendar
     for (let i = days.length; i > 35; i--) {
       const idx = 27 + i - 35;
-      const topDay = days[idx];
-      const bottomDay = days.pop();
+      const topDay = React.cloneElement(days[idx], {stacked: true});
+      const bottomDay = React.cloneElement(days.pop(), {stacked: true});
       days[idx] = (
         <div className="day-stacked" key={idx}>
           {topDay}

@@ -1,46 +1,50 @@
 import React from 'react';
-import { connect } from 'react-redux';
 
-const CalendarDayItem = (props) => {
-  let eventsArray;
-  let extraEvents;
-  if (props.eventsArray.length > 4) {
-    eventsArray = props.eventsArray.slice(0, 3);
-    eventsArray.push("extra");
-  } else {
-    eventsArray = props.eventsArray;
+export default class CalendarDayItem extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.renderEventDescriptions = this.renderEventDescriptions.bind(this);
   }
 
-  const eventDescriptions = eventsArray.map((eventId, i) => {
-    if (eventId === "extra") {
-      return (
-        <div className="day-event-extra" key={i}>
-          {props.eventsArray.length - 3} more events...
-        </div>
-      )
+  renderEventDescriptions() {
+    let eventsArray;
+    let extraEvents;
+    const eventsAllowed = this.props.stacked ? 1 : 4
+    if (this.props.eventsArray.length > eventsAllowed) {
+      eventsArray = this.props.eventsArray.slice(0, eventsAllowed - 1);
+      eventsArray.push("extra");
     } else {
-      return (
-        <div className="day-event" key={i}>
-          {props.events[eventId].description}
-        </div>
-      );
+      eventsArray = this.props.eventsArray;
     }
-  });
 
-  return (
-    <div onClick={() => props.toggleIndex(props.day)} className="day">
-      <div className="day-number">{props.day}</div>
-      {eventDescriptions}
-    </div>
-  );
-};
+    // for days that are stacked on top of each other, number of events
+    // shown are reduced to 1 (rather than 4) before being grouped
+    const eventDescriptions = eventsArray.map((eventId, i) => {
+      if (eventId === "extra") {
+        return (
+          <div className="day-event-extra" key={i}>
+            {this.props.eventsArray.length - eventsArray.length + 1} more events...
+          </div>
+        )
+      } else {
+        return (
+          <div className="day-event" key={i}>
+            {this.props.events[eventId].description}
+          </div>
+        );
+      }
+    });
 
-const msp = (state, ownProps) => {
-  const eventsArray = ownProps.getEventsArray(ownProps.day);
-  return ({
-    events: state.entities.events,
-    eventsArray
-  });
-};
+    return eventDescriptions;
+  }
 
-export default connect(msp, null)(CalendarDayItem);
+  render() {
+    return (
+      <div onClick={() => this.props.toggleIndex(this.props.day)} className="day">
+        <div className="day-number">{this.props.day}</div>
+        {this.renderEventDescriptions()}
+      </div>
+    );
+  }
+}
