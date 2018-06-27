@@ -4,9 +4,7 @@ import { groupAndSortEvents } from '../../reducers/selectors';
 import Calendar from './calendar';
 
 const msp = (state) => {
-  // groupAndSortEvents selector is used to key events by their month and year
-  // it is done on the client-side to compute date and time objects
-  // based on user's timezone (rails stores all datetime objects in UTC)
+  // groupAndSortEvents selector keys events by their month and year
   return ({
     events: state.entities.events,
     sortedEvents: groupAndSortEvents(state.entities.events)
