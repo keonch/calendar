@@ -1,5 +1,5 @@
 import React from 'react';
-import { formatTime } from '../../utils/time_util';
+import { formatTime, parseValueToTime } from '../../utils/time_util';
 
 export default class EventForm extends React.Component {
   constructor(props) {
@@ -24,7 +24,7 @@ export default class EventForm extends React.Component {
 
   updateStartTime(e) {
     const start = e.target.value;
-    const startTime = this.parseValueToTime(start);
+    const startTime = parseValueToTime(start, this.props.date);
     if (start > this.state.end) {
       this.setState({
         start,
@@ -42,7 +42,7 @@ export default class EventForm extends React.Component {
 
   updateEndTime(e) {
     const end = e.target.value;
-    const endTime = this.parseValueToTime(end);
+    const endTime = parseValueToTime(end, this.props.date);
     if (this.state.start > end) {
       this.setState({
         start: end,
@@ -56,25 +56,6 @@ export default class EventForm extends React.Component {
         endTime
       })
     }
-  }
-
-  // parses from input values from sliders to date objects
-  parseValueToTime(value) {
-    const totalMinutes = Math.round((value - 10) * 100),
-          year = this.props.date.getFullYear(),
-          month = this.props.date.getMonth(),
-          date = this.props.date.getDate(),
-          time = new Date(year, month, date)
-
-    let hours = Math.floor(totalMinutes / 60),
-        minutes = totalMinutes % 60
-
-    if (hours === 24) {
-      time.setHours(23, 59, 59, 999);
-    } else {
-      time.setHours(hours, minutes, 0, 0);
-    }
-    return time;
   }
 
   handleSubmit(e) {
@@ -98,11 +79,19 @@ export default class EventForm extends React.Component {
   render() {
     return (
       <form className="event-form" onSubmit={this.handleSubmit}>
-        <div className="event-form-cancel" onClick={() => this.props.closeForm()}>Cancel</div>
+        <div
+          className="event-form-cancel"
+          onClick={this.props.closeForm}>
+          Cancel
+        </div>
 
         {
           this.props.type === "edit" &&
-          <div className="delete-event" onClick={() => this.props.deleteEvent(this.props.eventId)}>Delete</div>
+          <div
+            className="delete-event"
+            onClick={() => this.props.deleteEvent(this.props.eventId)}>
+            Delete
+          </div>
         }
 
         <label className="description-label">Description</label>
@@ -112,7 +101,9 @@ export default class EventForm extends React.Component {
           placeholder="Enter event description"
           onChange={this.updateDescription}/>
 
-        <label className="label-start">Start Time {formatTime(this.state.startTime)}</label>
+        <label className="label-start">
+          Start Time {formatTime(this.state.startTime)}
+        </label>
         <input
           className="slider form-start"
           type="range"
@@ -122,7 +113,9 @@ export default class EventForm extends React.Component {
           value={this.state.start}
           onChange={this.updateStartTime}/>
 
-        <label className="label-end">End Time {formatTime(this.state.endTime)}</label>
+        <label className="label-end">
+          End Time {formatTime(this.state.endTime)}
+        </label>
         <input
           className="slider form-end"
           type="range"

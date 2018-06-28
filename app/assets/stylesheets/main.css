@@ -114,7 +114,7 @@ h1 {
   overflow: hidden;
 }
 
-.day-event-extra {
+.day-event-grouped {
   background: linear-gradient(#696eef, #575ded);
   color: white;
   font-size: 13px;

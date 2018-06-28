@@ -6,8 +6,8 @@ import Calendar from './calendar';
 const msp = (state) => {
   // groupAndSortEvents selector keys events by their month and year
   return ({
-    events: state.entities.events,
-    sortedEvents: groupAndSortEvents(state.entities.events)
+    events: state.events,
+    sortedEvents: groupAndSortEvents(state.events)
   });
 }
 

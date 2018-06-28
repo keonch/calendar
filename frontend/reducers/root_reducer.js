@@ -1,8 +1,6 @@
 import { combineReducers } from 'redux';
-import entities from './entities_reducer';
+import events from './events_reducer';
 
-const rootReducer = combineReducers({
-  entities
-});
+const rootReducer = combineReducers({events});
 
 export default rootReducer;

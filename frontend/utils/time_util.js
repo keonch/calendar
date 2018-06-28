@@ -23,3 +23,23 @@ export const parseTimeToSliderValue = (time) => {
   const value = (minutes / 100) + 10;
   return value.toFixed(1);
 };
+
+// parses from input values from sliders to date objects
+export const parseValueToTime = (value, date) => {
+  const totalMinutes = Math.round((value - 10) * 100),
+        year = date.getFullYear(),
+        month = date.getMonth(),
+        day = date.getDate(),
+        time = new Date(year, month, day);
+
+  let hours = Math.floor(totalMinutes / 60),
+      minutes = totalMinutes % 60
+
+  if (hours === 24) {
+    time.setHours(23, 59, 59, 999);
+  } else {
+    time.setHours(hours, minutes, 0, 0);
+  }
+
+  return time;
+};

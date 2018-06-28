@@ -14,8 +14,7 @@ export default class EventIndexItem extends React.Component {
   }
 
   handleDelete() {
-    const eventId = this.props.event.id;
-    this.props.deleteEvent(eventId);
+    this.props.deleteEvent(this.props.event.id);
   }
 
   toggleForm() {
@@ -46,12 +45,12 @@ export default class EventIndexItem extends React.Component {
               </div>
               <div
                 className="delete-event"
-                onClick={() => this.handleDelete()}>
+                onClick={this.handleDelete}>
                 Delete
               </div>
               <div
                 className="edit-event"
-                onClick={() => this.toggleForm()}>
+                onClick={this.toggleForm}>
                 Edit
               </div>
             </div>

@@ -5,7 +5,7 @@ const msp = (state, ownProps) => {
   const day = ownProps.date.getDate();
   const eventsArray = ownProps.getEventsArray(day);
   return ({
-    events: state.entities.events,
+    events: state.events,
     eventsArray
   });
 };
