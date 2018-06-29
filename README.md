@@ -54,6 +54,3 @@ Clicking on a day opens an index of events including a form to create an event
 
 Groups events to fit in day boxes  
 ![ui2](https://media.giphy.com/media/EriSvEe5QJYuLSCOR7/giphy.gif)
-
-Users can simultaneously edit/delete all events of a day  
-![ui3](https://media.giphy.com/media/4KEMwc50ho02nGGAR2/giphy.gif)
