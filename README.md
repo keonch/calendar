@@ -56,4 +56,4 @@ Groups events to fit in day boxes
 ![ui2](https://media.giphy.com/media/EriSvEe5QJYuLSCOR7/giphy.gif)
 
 Users can simultaneously edit/delete all events of a day  
-![ui3](https://media.giphy.com/media/3rZIY3BWGK2bzG94eq/giphy.gif)
+![ui3](https://media.giphy.com/media/4KEMwc50ho02nGGAR2/giphy.gif)
